@@ -48,13 +48,14 @@ paginationNumber.innerHTML = pageNumber;
 
 // Set visible for user contact of selected page, and hide the other contact form othe pages
 
-const setContactDisplay = (pageNum) => {
-     var activePage = pageNum;
+const setContactDisplay = (currentPageIndex) => {
+     var activePage = currentPageIndex;
     // Set active page to a different color
     setActivePage(activePage);
 
-    const firstContactDisplay = (pageNum - 1) * contactDisplayLimit;
-    const lastContactDisplay = pageNum * contactDisplayLimit;
+    //Set limit of contact can be showed on the screen
+    const firstContactDisplay = (currentPageIndex - 1) * contactDisplayLimit;
+    const lastContactDisplay = currentPageIndex * contactDisplayLimit;
     const listContact = Array.from(content.querySelectorAll("li"));
 
     listContact.forEach((contact, i) => {
