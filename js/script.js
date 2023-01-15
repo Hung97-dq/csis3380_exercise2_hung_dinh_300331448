@@ -47,27 +47,30 @@ for (let i = 1; i <= DisplayCount; i++) {
 paginationNumber.innerHTML = pageNumber;
 
 // Set visible for user contact of selected page, and hide the other contact form othe pages
-var currentPage;
+
 const setContactDisplay = (pageNum) => {
-    currentPage = pageNum;
-    setActivePage();
-    const prevRange = (pageNum - 1) * contactDisplayLimit;
-    const currRange = pageNum * contactDisplayLimit;
+     var activePage = pageNum;
+    // Set active page to a different color
+    setActivePage(activePage);
+
+    const firstContactDisplay = (pageNum - 1) * contactDisplayLimit;
+    const lastContactDisplay = pageNum * contactDisplayLimit;
     const listContact = Array.from(content.querySelectorAll("li"));
 
     listContact.forEach((contact, i) => {
         contact.classList.add("hidden");
-        if (i >= prevRange && i < currRange) {
+        if (i >= firstContactDisplay && i < lastContactDisplay) {
           contact.classList.remove("hidden");
         }
   });
   }
 
-  const setActivePage = () => {
+  // Set page active once a page button was clicked
+  const setActivePage = (activePage) => {
     document.querySelectorAll(".pagination-number").forEach((button) => {
       button.classList.remove("active");
       const pageIndex = Number(button.getAttribute("page-index"));
-      if (pageIndex == currentPage) {
+      if (pageIndex == activePage) {
         button.classList.add("active");
       }
     });
@@ -84,6 +87,8 @@ const setContactDisplay = (pageNum) => {
   }});
   }
 
+  // Call the function to set contact on first page to be active
+  // and set function to listen to the page click action
   window.addEventListener("load", () => {
     setContactDisplay(1);
     onPageClicked();
